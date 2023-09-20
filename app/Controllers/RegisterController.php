@@ -29,8 +29,12 @@ class RegisterController extends ShieldRegister
         // To get the complete user object with ID, we need to get from the database
         $user = $userModel->findById($userModel->getInsertID());
 
-        // Add to default group
-        $userModel->addToDefaultGroup($user);
+        if ($this->request->getPost('role') === 'admin') {
+            $user->addGroup('admin');
+        } else {
+            // Add to default group
+            $userModel->addToDefaultGroup($user);
+        }
 
         // Save into table profile
         $data_profile = [

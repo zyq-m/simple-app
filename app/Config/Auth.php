@@ -29,7 +29,7 @@ class Auth extends ShieldAuth
      * ////////////////////////////////////////////////////////////////////
      */
     public array $views = [
-        'login'                       => '\CodeIgniter\Shield\Views\login',
+        'login'                       => '\App\Views\login_view',
         'register'                    => '\CodeIgniter\Shield\Views\register',
         'layout'                      => '\CodeIgniter\Shield\Views\layout',
         'action_email_2fa'            => '\CodeIgniter\Shield\Views\email_2fa_show',
@@ -87,10 +87,10 @@ class Auth extends ShieldAuth
      * to apply any logic you may need.
      */
     public array $redirects = [
-        'register'    => '/home',
-        'login'       => '/home',
-        'logout'      => 'login',
-        'force_reset' => '/home',
+        'register'    => '',
+        'login'       => '/user',
+        'logout'      => '/login',
+        'force_reset' => '',
     ];
 
     /**
@@ -402,6 +402,10 @@ class Auth extends ShieldAuth
      */
     public function loginRedirect(): string
     {
+        if (auth()->user()->inGroup('admin')) {
+            return '/admin/home';
+        }
+
         $url = setting('Auth.redirects')['login'];
 
         return $this->getUrl($url);

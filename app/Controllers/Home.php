@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\Shield\Controllers\LoginController;
+
 class Home extends BaseController
 {
     public function index(): string
     {
-        return view('welcome_message');
+        return view('user/welcome_message');
     }
 
     public function login(): string
@@ -18,18 +20,19 @@ class Home extends BaseController
     public function register(): string
     {
         $data['title'] = 'Register';
-        return view('register_view');
+        return view('admin/register_view');
     }
 
     public function home(): string
     {
         $data['title'] = 'Dashboard';
-        return view('home_view');
+
+        return view('admin/home_view');
     }
 
     public function viewAddUser(): string
     {
         $data['title'] = 'Add User';
-        return view('add_user_view');
+        return view('admin/add_user_view');
     }
 }
